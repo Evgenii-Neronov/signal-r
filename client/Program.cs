@@ -4,6 +4,7 @@ var userGuid = "0e868f0a-d150-4392-abba-c9b98d4d010a";
 
 var hubConnection = new HubConnectionBuilder()
     .WithUrl("http://localhost:5201/notificationHub")
+    .WithAutomaticReconnect()
     .Build();
 
 hubConnection.On<string>("ReceiveNotification", (message) =>
