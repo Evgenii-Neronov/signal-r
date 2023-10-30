@@ -21,7 +21,7 @@ public class ChatController : ControllerBase
         {
             if (request.UserGuid == null)
             {
-                await hubConnection.InvokeAsync("SendNotification", request.Message);  
+                await hubConnection.InvokeAsync("SendNotification", request.Message, "ALL");  
             }
             else
             {

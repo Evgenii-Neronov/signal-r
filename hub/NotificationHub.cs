@@ -16,7 +16,14 @@ namespace SignalRHubService.Hubs
 
         public async Task SendNotification(string message, string groupName)
         {
-            await Clients.Group(groupName).SendAsync("ReceiveNotification", message);
+            if(groupName == "ALL")
+            {
+                await Clients.All.SendAsync("ReceiveNotification", message);
+            }
+            else
+            {
+                await Clients.Group(groupName).SendAsync("ReceiveNotification", message);
+            }
         }
 
     }
