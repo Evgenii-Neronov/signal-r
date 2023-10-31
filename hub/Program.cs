@@ -1,23 +1,31 @@
 ﻿using SignalRHubService.Hubs;
 
-// задаём подключение до Redis здесь
 var redisUrl = "192.168.88.49:6379";
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("https://localhost:44496")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials()); // Разрешить передачу учетных данных
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services
     .AddSignalR()
-    // используем Redis backplane
     .AddStackExchangeRedis(redisUrl, options =>
     {
         options.Configuration.ChannelPrefix = "MyRedisApp";
     });
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
 
 if (app.Environment.IsDevelopment())
 {
