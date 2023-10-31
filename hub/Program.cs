@@ -27,7 +27,7 @@ var app = builder.Build();
 
 app.UseCors("AllowSpecificOrigin");
 
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

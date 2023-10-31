@@ -1,9 +1,34 @@
 ﻿import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
+// роунд-робин ! - * - * -
+/*
+const hubUrls = [
+    'http://neu-api.tech:7001/notificationHub',
+    'http://neu-api.tech:7002/notificationHub',
+    'http://neu-api.tech:7003/notificationHub'
+];
+*/
+const hubUrls = [
+    'http://localhost:7001/notificationHub',
+    'http://localhost:7002/notificationHub',
+    'http://localhost:7003/notificationHub'
+];
+
+let nextUrlIndex = 0;
+// - * - * - * - * - * - * -
+
+function getNextHubUrl() {
+    const url = hubUrls[nextUrlIndex];
+    nextUrlIndex = (nextUrlIndex + 1) % hubUrls.length;
+    console.log('Selected hub URL:', url);
+    return url;
+}
+
 export const connectToSignalRHub = () => {
     var userId = "0e868f0a-d150-4392-abba-c9b98d4d010a";
     const connection = new HubConnectionBuilder()
-        .withUrl('http://localhost:5201/notificationHub', { withCredentials: true })
+        .withUrl('http://localhost:7002/notificationHub', { withCredentials: true })
+        //.withUrl(getNextHubUrl(), { withCredentials: true })
         .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
         .build();

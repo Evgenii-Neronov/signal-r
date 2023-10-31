@@ -12,7 +12,7 @@ public class ChatController : ControllerBase
     public async Task<IActionResult> SendNotification([FromBody] NotificationRequest request)
     {
         var hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5201/notificationHub")
+            .WithUrl("http://neu-api.tech:7001/notificationHub")
             .Build();
 
         await hubConnection.StartAsync();
