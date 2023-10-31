@@ -9,7 +9,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("https://localhost:44496")
                           .AllowAnyMethod()
                           .AllowAnyHeader()
-                          .AllowCredentials()); // Разрешить передачу учетных данных
+                          .AllowCredentials());
 });
 
 builder.Services.AddControllers();
